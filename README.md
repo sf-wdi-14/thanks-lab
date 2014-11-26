@@ -49,10 +49,8 @@ Scroll down for the actual assignment!
 
 ## Assignment - Memory Game
 1. Fork and clone this repository
-2. Add a directory called `memory`
-3. `cd` into `memory`
-4. Build a memory game like [this one](http://www.mathsisfun.com/games/memory/), except that instead of images you are going to use strings (numbers, words, etc are all fine), and you only need a start button, nothing else from the sidebar on the right.
-5. Stage, commit, and push to your fork once done
+2. Build a memory game like [this one](http://www.mathsisfun.com/games/memory/), except that instead of images you are going to use strings (numbers, words, etc are all fine), and you only need a start button, nothing else from the sidebar on the right.
+3. Stage, commit, and push to your fork once done
 
 Bonus section:
 
