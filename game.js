@@ -10,9 +10,13 @@ window.onload = function() {
 				 "e","f","g","h"];
 	
 	startButton.onclick = function() {
-		for (var box = 0; box < boxes.length; box++) {
+		for (var n = 0; n < boxes.length; n++) {
 			var i = Math.floor((Math.random() * boxes.length) );
-			boxes[i].innerHTML = tiles[i];
+			console.log(i);
+			if (!boxes[i].innerHTML) {
+				boxes[n].innerHTML = tiles[i];
+				console.log(tiles[i], boxes[i].innerHTML);
+			} 
 		}
 	}
 	
