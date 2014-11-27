@@ -21,7 +21,7 @@ window.onload = function() {
 	
 	// Start the game and initiate the board
 	var started = false,
-		newBoard;
+		  newBoard;
 	startButton.onclick = function() {
 		newBoard = shuffle(tiles);
 		started = true;
@@ -31,27 +31,28 @@ window.onload = function() {
 		} 
 	}
 
+	// Win conditions
+
+	
+
 	// When player clicks a box ...
 	var cards = [];
-	var isMatch = function() {
-		if (cards.length === 2) {
-			if (cards[0] !== cards[1]) {
-				console.log(this);
-				this.classList.remove('reveal');
-			} else {
-				this.classList.add('match');
-				cards = [];
-			}
-		}
-	}
-
 	for (var t = 0; t < boxes.length; t++) {
 		boxes[t].onclick = function() {
 			if (started === true) {
 				this.classList.add('reveal');
-			  cards.push(this.innerHTML);
+			  cards.push(t);
 			  console.log(cards);
-			  isMatch();
+
+			  if (cards.length === 2) {
+			    if (cards[0] !== cards[1]) {
+				    console.log(this);
+				    this.classList.remove('reveal');				    
+			    } else {
+				    this.classList.add('match');
+				    cards = [];
+			    }
+		    }
 			} else {
 				notification.innerHTML = "Press the start button.";
 			}
