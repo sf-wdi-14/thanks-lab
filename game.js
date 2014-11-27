@@ -25,7 +25,8 @@ window.onload = function() {
 	startButton.onclick = function() {
 		newBoard = shuffle(tiles);
 		started = true;
-		
+		startButton.disabled = true;
+		console.log(newBoard);
 		for (var n = 0; n < boxes.length; n++) {
 			boxes[n].innerHTML = tiles[n];
 		} 
@@ -33,33 +34,33 @@ window.onload = function() {
 
 	// Win conditions
 
-	
 
 	// When player clicks a box ...
 	var cards = [];
+	var indices =[];
+
 	for (var t = 0; t < boxes.length; t++) {
+		
 		boxes[t].onclick = function() {
 			if (started === true) {
 				this.classList.add('reveal');
-			  cards.push(t);
+			  cards.push(this.innerHTML);
 			  console.log(cards);
-
-			  if (cards.length === 2) {
+			  			  
+  	    if (cards.length === 2) {
 			    if (cards[0] !== cards[1]) {
-				    console.log(this);
-				    this.classList.remove('reveal');				    
+				    this.classList.remove('reveal');				  			    
 			    } else {
 				    this.classList.add('match');
-				    cards = [];
 			    }
-		    }
+				  cards = [];
+		    }		    
+
 			} else {
 				notification.innerHTML = "Press the start button.";
 			}
 
 		}
-		
-
 	}
 
 	// Reset the game
@@ -67,6 +68,7 @@ window.onload = function() {
 		for (var b = 0; b < boxes.length; b++) {
 			boxes[b].innerHTML = "";
 			notification.innerHTML = "Yummy ...a clean board.";
+			startButton.disabled = false;
 		}
 	}
 }
