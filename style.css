@@ -29,4 +29,20 @@ body {
 	text-align: center;
 	font-size: 60px;
 	text-transform: uppercase;
+	color: black;
+	background: black;
+}
+
+.hide {
+	background: blue;
+	color: blue;
+}
+
+.reveal {
+	color: red;
+}
+
+.match {
+	background: #fff;
+	color: green;
 }
