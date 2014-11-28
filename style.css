@@ -34,8 +34,9 @@ body {
 }
 
 .hide {
-	background: blue;
-	color: blue;
+	background: black;
+	color: black;
+	z-index: 1;
 }
 
 .reveal {

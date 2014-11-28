@@ -9,11 +9,11 @@ window.onload = function() {
 		revealed = document.querySelectorAll(".reveal"),
 		notification = document.querySelector(".message");
 	var tiles = ["a","b","c","d",
-				 "e","f","g","h",
-				 "a","b","c","d",
-				 "e","f","g","h"];
+							 "e","f","g","h",
+							 "a","b","c","d",
+							 "e","f","g","h"];
 
-	// Shuffle the tiles
+	// Shuffle the tiles 
 	function shuffle(o) {
 		for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j]= x);
     	return o;
@@ -27,22 +27,30 @@ window.onload = function() {
 		started = true;
 		startButton.disabled = true;
 		console.log(newBoard);
-		for (var n = 0; n < boxes.length; n++) {
-			boxes[n].innerHTML = tiles[n];
-		} 
+		//for (var n = 0; n < boxes.length; n++) {
+		//	boxes[n].innerHTML = newBoard[n];
+		//} 
 	}
 
 	// Win conditions
+	var cards = [];
+	var pairs = 0;
+	var isMatch = function() {
+		if (cards[0] === cards[1]) {
+			this.classList.add('match');
+			notification.innerHTML = "Match!";
+			pairs++;
+		}
+	};
 
 
 	// When player clicks a box ...
-	var cards = [];
-	var indices =[];
-
+  
 	for (var t = 0; t < boxes.length; t++) {
 		
 		boxes[t].onclick = function() {
 			if (started === true) {
+				this.innerHTML = newBoard[t];
 				this.classList.add('reveal');
 			  cards.push(this.innerHTML);
 			  console.log(cards);
@@ -51,7 +59,11 @@ window.onload = function() {
 			    if (cards[0] !== cards[1]) {
 				    this.classList.remove('reveal');				  			    
 			    } else {
+			    	console.log(this);
 				    this.classList.add('match');
+				    boxes.classList;
+						notification.innerHTML = "Match!";
+						pairs++;
 			    }
 				  cards = [];
 		    }		    
