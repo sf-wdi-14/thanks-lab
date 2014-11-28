@@ -26,10 +26,10 @@ window.onload = function() {
 		newBoard = shuffle(tiles);
 		started = true;
 		startButton.disabled = true;
-		console.log(newBoard);
-		//for (var n = 0; n < boxes.length; n++) {
-		//	boxes[n].innerHTML = newBoard[n];
-		//} 
+		console.log(newBoard);	
+		for (var n = 0; n < boxes.length; n++) {
+			boxes[n].innerHTML = newBoard[n];
+		} 
 	}
 
 	// Win conditions
@@ -49,8 +49,8 @@ window.onload = function() {
 	for (var t = 0; t < boxes.length; t++) {
 		
 		boxes[t].onclick = function() {
+			  console.log(t); 
 			if (started === true) {
-				this.innerHTML = newBoard[t];
 				this.classList.add('reveal');
 			  cards.push(this.innerHTML);
 			  console.log(cards);
