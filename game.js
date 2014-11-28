@@ -49,7 +49,7 @@ window.onload = function() {
 	for (var t = 0; t < boxes.length; t++) {
 		
 		boxes[t].onclick = function() {
-			  console.log(t); 
+			console.log(t); 
 			if (started === true) {
 				this.classList.add('reveal');
 			  cards.push(this.innerHTML);
@@ -61,7 +61,6 @@ window.onload = function() {
 			    } else {
 			    	console.log(this);
 				    this.classList.add('match');
-				    boxes.classList;
 						notification.innerHTML = "Match!";
 						pairs++;
 			    }
