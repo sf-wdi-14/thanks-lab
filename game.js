@@ -6,8 +6,9 @@ window.onload = function() {
 		startButton = document.querySelector("#start"),
 		stopButton = document.querySelector("#stop"),
 		hidden = document.querySelectorAll(".hide"),
-		revealed = document.querySelectorAll(".reveal"),
+		revealed = document.getElementsByClassName("box reveal"),
 		notification = document.querySelector(".message");
+	
 	var tiles = ["a","b","c","d",
 							 "e","f","g","h",
 							 "a","b","c","d",
@@ -21,7 +22,9 @@ window.onload = function() {
 	
 	// Start the game and initiate the board
 	var started = false,
-		  newBoard;
+		  newBoard = [],
+		  currentBoard = [];
+
 	startButton.onclick = function() {
 		newBoard = shuffle(tiles);
 		started = true;
@@ -49,7 +52,6 @@ window.onload = function() {
 	for (var t = 0; t < boxes.length; t++) {
 		
 		boxes[t].onclick = function() {
-			console.log(t); 
 			if (started === true) {
 				this.classList.add('reveal');
 			  cards.push(this.innerHTML);
@@ -57,10 +59,13 @@ window.onload = function() {
 			  			  
   	    if (cards.length === 2) {
 			    if (cards[0] !== cards[1]) {
-				    this.classList.remove('reveal');				  			    
+			    	console.log(revealed.length);
+				    revealed.classList.remove('reveal');
+				    				  			    
 			    } else {
 			    	console.log(this);
 				    this.classList.add('match');
+				    
 						notification.innerHTML = "Match!";
 						pairs++;
 			    }
