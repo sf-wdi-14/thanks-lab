@@ -5,26 +5,26 @@ window.onload = function() {
 		board = document.querySelector(".board"),
 		startButton = document.querySelector("#start"),
 		stopButton = document.querySelector("#stop"),
-		hidden = document.querySelectorAll(".hide"),
-		revealed = document.getElementsByClassName("box reveal"),
 		notification = document.querySelector(".message");
 	
 	var tiles = ["a","b","c","d",
-							 "e","f","g","h",
-							 "a","b","c","d",
-							 "e","f","g","h"];
+				 "e","f","g","h",
+				 "a","b","c","d",
+				 "e","f","g","h"];
 
-	// Shuffle the tiles 
+	// Shuffle the tiles, inspired by Fisher-Yates 
+	// http://en.wikipedia.org/wiki/Fisher_Yates_shuffle
 	function shuffle(o) {
 		for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j]= x);
     	return o;
 	};
 	
-	// Start the game and initiate the board
+	// No game until Start button is pressed
 	var started = false,
 		  newBoard = [],
 		  currentBoard = [];
 
+	// Initiate a new game board
 	startButton.onclick = function() {
 		newBoard = shuffle(tiles);
 		started = true;
@@ -35,50 +35,6 @@ window.onload = function() {
 		} 
 	}
 
-	// Win conditions
-	var cards = [];
-	var pairs = 0;
-	var isMatch = function() {
-		if (cards[0] === cards[1]) {
-			this.classList.add('match');
-			notification.innerHTML = "Match!";
-			pairs++;
-		}
-	};
-
-
-	// When player clicks a box ...
-  
-	for (var t = 0; t < boxes.length; t++) {
-		
-		boxes[t].onclick = function() {
-			if (started === true) {
-				this.classList.add('reveal');
-			  cards.push(this.innerHTML);
-			  console.log(cards);
-			  			  
-  	    if (cards.length === 2) {
-			    if (cards[0] !== cards[1]) {
-			    	console.log(revealed.length);
-				    revealed.classList.remove('reveal');
-				    				  			    
-			    } else {
-			    	console.log(this);
-				    this.classList.add('match');
-				    
-						notification.innerHTML = "Match!";
-						pairs++;
-			    }
-				  cards = [];
-		    }		    
-
-			} else {
-				notification.innerHTML = "Press the start button.";
-			}
-
-		}
-	}
-
 	// Reset the game
 	stopButton.onclick = function() {
 		for (var b = 0; b < boxes.length; b++) {
@@ -87,6 +43,52 @@ window.onload = function() {
 			startButton.disabled = false;
 		}
 	}
-}
 
-// Score
+	// Check the pairs for a match
+	var cards = [];
+	var pairs = 0;
+
+	function isMatch() {
+		if (cards[0].innerHTML === cards[1].innerHTML) {
+			cards[0].classList.add('match');
+			cards[1].classList.add('match');
+			cards = [];
+			notification.innerHTML = "Match!";
+			pairs++;
+		} else {
+			setTimeout(function()
+			  {
+			    cards[0].classList.remove('reveal');
+			    cards[1].classList.remove('reveal');
+			    cards = [];
+			  }, 500);
+		}
+	};
+
+	// Are all cards matched?
+	function gameOver() {
+		if (pairs === 8) {
+			notification.innerHTML = "YOU WON!";
+		}
+	}
+	
+	// When player clicks a box ...
+  for (var t = 0; t < boxes.length; t++) {
+		
+		boxes[t].onclick = function() {
+			if (started === true) {
+				this.classList.add('reveal');
+			  cards.push(this);		  
+  	    if (cards.length === 2) {
+			    isMatch();				 
+		    }		    
+			} else {
+				notification.innerHTML = "Press the start button.";
+			}
+			gameOver();
+		}
+	}
+}
+// Current issues:
+// 1. Clicking the same card twice to get an auto match.
+// 2. 
