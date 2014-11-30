@@ -1,50 +1,123 @@
+/* Page sections ----------------------------*/
 body {
+	background: #fffbdf;
+	font-family: 'Play', sans-serif;
+}
 
+.header {
+	position: relative;
+	margin: auto;
+	padding: 10px;
+	height: 150px;
+}
+
+#title {
+	font-family: 'Titillium Web', sans-serif;
+	font-size: 50px;
+	text-align: center;
+	color: #003b4f;
+}
+#rules {
+	font-family: 'Titillium Web', sans-serif;
+	color: #616161;
+	font-size: 24px;
+	text-align: center;
+}
+
+.message {
+	position: relative;
+	margin: 5px;
+	height: 36px;
+	text-align: center;
+	font-size: 24px;
+	font-family: 'Play', sans-serif;
+	color: #8c0000;
+}
+
+.controls {
+	float: left;
+	position: relative;
+	margin: auto 20px;
+	padding: 5px;
+	width: 250px;
 }
 
 .board {
-	border: 5px solid black;
+	float: left;
+	border: 5px solid #003b4f;
+	border-radius: 10px;
 	position: relative;
-	width: 350px;
+	width: 360px;
 	height: 350px;
 	margin: auto;
 	padding: 5px;
 }
 
+/* Game board and data -------------------------------*/
 .row {
 	margin: auto;
 	padding: 5px;
-	width: 330px;
+	width: 340px;
 	height: 75px;
 }
 
 .box {
 	float: left;
 	position: relatve;
-	border: 1px solid black;
+	border: 2px solid #616161;
+	border-radius: 10px;
 	width: 70px;
 	height: 70px;
 	margin: 5px 5px;
-	font-family: 'Delius Unicase', cursive;
+	font-family: 'Play', sans-serif;
 	text-align: center;
 	font-size: 60px;
 	text-transform: uppercase;
-	color: black;
-	background: black;
+	color: #003b4f;
+	background: #003b4f;
 }
 
-.hide {
-	background: black;
-	color: black;
+button {
+	width: 100px;
+	height: 50px;
+	border: #003b4f solid 2px;
+	border-radius: 10px;
+	background: #dbdbdb;
+	color: #003b4f;
+	font-size: 30px;
+	font-family: 'Play', sans-serif;
+	text-align: center;
 }
+
+#stop {
+	color: #8c0000;
+}
+
+.dim {
+	background: #428A35;
+	color: #fffbdf;
+	border: 2px solid #003b4f;
+	opacity: .5;
+}
+
+#score {
+	font-size: 18px;
+	text-align: left;
+	margin-top: 20px;
+}
+
+/* JS Box Effects -------------------------------------*/
 
 .reveal {
-	color: red;
+	background: #616161;
+	color: #dbdbdb;
+	border: 2px solid #dbdbdb;
 }
 
 .match {
-	background: #fff;
-	color: green;
+	background: #dbdbdb;
+	color: #8c0000;
+	border: 2px solid #003b4f;
 }
 
 .noselect {
@@ -54,4 +127,18 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+/* Experiments and Testing ---------------------------*/
+.noclick {
+	background: transparent;
+	background: transparent;
+	z-index: 2;
+}
+
+.noclicky {
+	position: absolute;
+	width: 70px;
+	height: 70px;
+	z-index: 2;
 }
