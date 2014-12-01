@@ -1,0 +1,156 @@
+/* Page sections ----------------------------*/
+body {
+	background: #fffbdf;
+	font-family: 'Play', sans-serif;
+}
+
+.header {
+	position: relative;
+	margin: auto;
+	padding: 10px;
+	height: 150px;
+}
+
+#title {
+	font-family: 'Titillium Web', sans-serif;
+	font-size: 50px;
+	text-align: center;
+	color: #003b4f;
+}
+#rules {
+	font-family: 'Titillium Web', sans-serif;
+	color: #616161;
+	font-size: 24px;
+	text-align: center;
+}
+
+.message {
+	position: relative;
+	margin: 5px;
+	height: 36px;
+	text-align: center;
+	font-size: 24px;
+	font-family: 'Play', sans-serif;
+	color: #8c0000;
+}
+
+.controls {
+	text-align: center;
+	position: relative;
+	margin: auto;
+	padding: 5px;
+	width: 380px;
+}
+
+.board {
+	border: 5px solid #003b4f;
+	border-radius: 10px;
+	position: relative;
+	width: 360px;
+	height: 350px;
+	margin: auto;
+	padding: 5px;
+}
+
+/* Game board and data -------------------------------*/
+.row {
+	margin: auto;
+	padding: 5px;
+	width: 340px;
+	height: 75px;
+}
+
+.box {
+	float: left;
+	position: relatve;
+	border: 2px solid #616161;
+	border-radius: 10px;
+	width: 70px;
+	height: 70px;
+	margin: 5px 5px;
+	font-family: 'Play', sans-serif;
+	text-align: center;
+	font-size: 60px;
+	text-transform: uppercase;
+	color: #003b4f;
+	background: #003b4f;
+	cursor: cell;
+}
+
+button {
+	width: 100px;
+	height: 50px;
+	border: #003b4f solid 2px;
+	border-radius: 10px;
+	background: #dbdbdb;
+	color: #003b4f;
+	font-size: 30px;
+	font-family: 'Play', sans-serif;
+	text-align: center;
+}
+
+#stop {
+	
+}
+
+.dimStart {
+	background: #428A35;
+	color: #fffbdf;
+	border: 2px solid #003b4f;
+	opacity: .5;
+}
+
+.dimStop {
+	background: #8c0000;
+	color: #fff;
+	border: 2px solid #003b4f;
+	opacity: .5;
+}
+
+#score {
+	font-size: 18px;
+	margin: 5px auto;
+}
+
+#counter {
+	height: 20px;
+	margin: 5px auto;
+}
+
+/* JS Box Effects -------------------------------------*/
+
+.reveal {
+	background: #616161;
+	color: #dbdbdb;
+	border: 2px solid #dbdbdb;
+}
+
+.match {
+	background: #dbdbdb;
+	color: #8c0000;
+	border: 2px solid #003b4f;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Experiments and Testing ---------------------------*/
+.noclick {
+	background: transparent;
+	background: transparent;
+	z-index: 1;
+}
+
+.cover {
+	background: #000;
+	display: ;
+	width: 70px;
+	height: 70px;
+	z-index: 2;
+}
