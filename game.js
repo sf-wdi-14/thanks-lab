@@ -1,103 +1,157 @@
 window.onload = function() {
 
-	var boxes = document.querySelectorAll(".box"),
-		board = document.querySelector(".board"),
-		startButton = document.querySelector("#start"),
-		stopButton = document.querySelector("#stop"),
-		notification = document.querySelector(".message"),
-		counter = document.querySelector("#counter");
-	
-	var tiles = [
-		"a","b","c","d",
-		"e","f","g","h",
-		"a","b","c","d",
-		"e","f","g","h"
-		];
+  var boxes = document.querySelectorAll(".box"),
+    board = document.querySelector(".board"),
+    startButton = document.querySelector("#start"),
+    stopButton = document.querySelector("#stop"),
+    notification = document.querySelector(".message"),
+    rules = document.querySelector("#rules");
+    counter = document.querySelector("#counter");
+  
+  var started = false, 
+    newBoard = [], cards = [], 
+    score = 0, pairs = 0, attempts = 0,
+    noMatchTimeOut;
+  
+  var tiles = ["a","b","c","d","e","f","g","h",
+    "a","b","c","d","e","f","g","h"];
 
-	// Shuffle the tiles, inspired by Fisher-Yates 
-	// http://en.wikipedia.org/wiki/Fisher_Yates_shuffle
-	function shuffle(o) {
-		for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j]= x);
-    	return o;
-	};
-	
-	// No game until Start button is pressed
-	var started = false,
-		  newBoard = [],
-		  score = 0;
+  stopButton.disabled = true;
 
-	// Initiate a new game board
-	startButton.onclick = function() {
-		newBoard = shuffle(tiles);
-		started = true;
-		startButton.disabled = true;
-		startButton.classList.add('dim');	
-		for (var n = 0; n < boxes.length; n++) {
-			boxes[n].innerHTML = newBoard[n];
-		} 
-	}
+  // Shuffle the tiles, inspired by Fisher-Yates 
+  // http://en.wikipedia.org/wiki/Fisher_Yates_shuffle
+  function shuffle(o) {
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j]= x);
+      return o;
+  };
+  
+  function gameStart() {
+    if (started == true) {
+      startButton.classList.add('dimStart');
+      stopButton.classList.remove('dimStop');
+      startButton.disabled = true; 
+      stopButton.disabled = false;
+    } else if (started == false) {
+      startButton.classList.remove('dimStart');
+      stopButton.classList.add('dimStop');
+      startButton.disabled = false;
+      stopButton.disabled = true;
+      counter.innerHTML ="";
+    }
+  }
 
-	// Reset the game
-	stopButton.onclick = function() {
-		for (var b = 0; b < boxes.length; b++) {
-			boxes[b].innerHTML = "";
-			boxes[b].classList.remove('reveal','noclick','match');
-			notification.innerHTML = "Yummy ...a clean board.";
-			startButton.disabled = false;
-			pairs = 0, score = 0, counter = 0;
-			cards = [];
-		}
-	}
+  function fancyText(myMessage,classIn,classOut) {
+    setTimeout(function() {
+        notification.innerHTML = myMessage;
+        notification.classList.add(classIn);
+      }, 0);
+    setTimeout(function() {
+        notification.innerHTML = myMessage;
+        notification.classList.add(classOut);
+      }, 2000);
+    notification.innerHTML = "";
+    notification.classList.remove(classIn,classOut);
+  }
 
-	// Check the pairs for a match
-	var cards = [];
-	var pairs = 0;
+  // Initiate a new game board
+  startButton.onclick = function() {
+    newBoard = shuffle(tiles);
+    started = true;
+    attempts = 0;
+    gameStart(); 
+    board.classList.remove('wobble');
+    for (var n = 0; n < boxes.length; n++) {
+      boxes[n].innerHTML = newBoard[n];
+    } 
+  }
 
-	function isMatch() {
-		if (cards[0].innerHTML === cards[1].innerHTML) {
-			cards[0].classList.add('match','noclick');
-			cards[1].classList.add('match','noclick');
-			cards = [];
-			notification.innerHTML = "Match!";
-			pairs++;
-		} else {
-			setTimeout(function()
-			  {
-			    cards[0].classList.remove('reveal','noclick');
-			    cards[1].classList.remove('reveal','noclick');
-			    cards = [];
-			  }, 500);
-		}
-	};
+  // Reset the game
+  stopButton.onclick = function() {
+    for (var b = 0; b < boxes.length; b++) {
+      boxes[b].innerHTML = "";
+      boxes[b].classList.remove('reveal','match');
+      fancyText("Yummy ...a clean slate!",'fadeIn','fadeOut');
+      board.classList.add('wobble');
+      started = false;
+      gameStart();
+      pairs = 0, score = 0, attempts = 0;
+      cards = [];
+    }
+  }
 
-	// Are all cards matched?
-	function gameOver() {
-		if (pairs === 8) {
-			notification.innerHTML = "YOU WON!";
-		}
-	}
-	
-	// When player clicks a box ...
-		var attempts = 0;
+  function isMatch() {
+    if (cards[0].innerHTML == cards[1].innerHTML && cards[0] != cards[1]) {
+      cards[0].classList.add('match');
+      cards[1].classList.add('match');
+      cards = [];
+      fancyText("Match!","zoomIn","zoomOut");
+      pairs++;
+    } else {
+      noMatchTimeOut = setTimeout( function() {
+        clearReveal();
+        noMatchTimeOut = null;
+      }, 500);
+    }
+  };
+
+  function checkTimeout() {
+    if(noMatchTimeOut != null)
+    {
+      clearTimeout(noMatchTimeOut);
+      clearReveal();
+    }
+  }
+
+  function clearReveal() {
+    cards[0].classList.remove('reveal');
+    cards[1].classList.remove('reveal');
+    cards = [];
+    noMatchTimeOut = null;
+  }
+
+  // Are all cards matched?
+  function gameOver() {
+    if (pairs == 8) {
+      fancyText("YOU WON!","shake","fadeOut");
+    }
+  }
+  // Have some fun with the player.
+  function taunt() {
+    var taunts = ["C'mon...", attempts + " tries. Really?", "OK, you can do this."];
+    if (attempts % 3 === 0) {
+      t = Math.floor(Math.random() * (taunts.length - 0));
+      fancyText(taunts[t],"shake","zoomOut");
+    }
+  }
+
+  // Main game loop
   for (var t = 0; t < boxes.length; t++) {
-		boxes[t].onclick = function() {
-			if (started === true) {
-				attempts++;
-				this.classList.add('reveal','noclick');
-			  cards.push(this);	
-			  counter.innerHTML = attempts;	  
-  	    if (cards.length === 2) {
-			    isMatch();				 
-		    }		    
-			} else {
-				notification.innerHTML = "Press the start button.";
-				notification.classList.add('flash');
-			}
+    boxes[t].onclick = function() {
+      checkTimeout();
 
-			gameOver();
-		}
-	}
+      if (this.classList.contains("match"))
+      {
+        return;
+      }
+
+      if (started == true) {
+        this.classList.add('reveal');
+        cards.push(this);
+        if (cards.length == 2) {
+          attempts++;
+          taunt();
+          counter.innerHTML = attempts;
+          isMatch();
+        }
+      } else {
+        fancyText("Press the start button.","flash","fadeOut");
+      }
+      gameOver();
+    }
+  }
+
+  
+  
 }
-// Current issues:
-// 1. Clicking the same card twice to get an auto match.
-// 2. "Covering" a card
+
+// Extras

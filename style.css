@@ -35,15 +35,14 @@ body {
 }
 
 .controls {
-	float: left;
+	text-align: center;
 	position: relative;
-	margin: auto 20px;
+	margin: auto;
 	padding: 5px;
-	width: 250px;
+	width: 380px;
 }
 
 .board {
-	float: left;
 	border: 5px solid #003b4f;
 	border-radius: 10px;
 	position: relative;
@@ -75,6 +74,7 @@ body {
 	text-transform: uppercase;
 	color: #003b4f;
 	background: #003b4f;
+	cursor: cell;
 }
 
 button {
@@ -90,20 +90,31 @@ button {
 }
 
 #stop {
-	color: #8c0000;
+	
 }
 
-.dim {
+.dimStart {
 	background: #428A35;
 	color: #fffbdf;
 	border: 2px solid #003b4f;
 	opacity: .5;
 }
 
+.dimStop {
+	background: #8c0000;
+	color: #fff;
+	border: 2px solid #003b4f;
+	opacity: .5;
+}
+
 #score {
 	font-size: 18px;
-	text-align: left;
-	margin-top: 20px;
+	margin: 5px auto;
+}
+
+#counter {
+	height: 20px;
+	margin: 5px auto;
 }
 
 /* JS Box Effects -------------------------------------*/
@@ -133,11 +144,12 @@ button {
 .noclick {
 	background: transparent;
 	background: transparent;
-	z-index: 2;
+	z-index: 1;
 }
 
-.noclicky {
-	position: absolute;
+.cover {
+	background: #000;
+	display: ;
 	width: 70px;
 	height: 70px;
 	z-index: 2;
